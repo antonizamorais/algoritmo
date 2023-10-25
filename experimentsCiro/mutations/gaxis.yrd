@@ -1,0 +1,6 @@
+S ^result [I] [F] [T] ^mutation S2 mutation [I] [F] [T] result
+S2 ^result ^mutation S2 mutation result
+S2 
+I index self::1
+F from self::A
+T to self::B

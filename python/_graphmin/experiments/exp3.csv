@@ -1,0 +1,10 @@
+RandomRGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-50.txt,50,10
+RandomRGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-100.txt,100,10
+RandomRGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-150.txt,150,10
+RandomRGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-200.txt,200,10
+RandomRGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-250.txt,250,10
+RandomCFGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-50.txt,50,10
+RandomCFGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-100.txt,100,10
+RandomCFGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-150.txt,150,10
+RandomCFGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-200.txt,200,10
+RandomCFGM,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/abcdstar.yrd,/home/ciro/dev/gmin/main/rdf-ccfpq/python/_graphmin/experiments/exp3/complete-250.txt,250,10
