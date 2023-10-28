@@ -1,6 +1,7 @@
 '''
 Graphs and related data structures for path query algorithms.
 '''
+import json
 
 class Graph:
     '''A Graph data structure for path query algorithms.
@@ -12,6 +13,7 @@ class Graph:
         self.obj_data = {}
         self.triples_count = 0
         self.name = name
+        self.provenence = {}
 
     def __len__(self):
         '''Allows the use of the `len` function to get the amount of triples
@@ -193,7 +195,7 @@ class Graph:
         return False
 
     @staticmethod
-    def load(graphfile, headers=None, grammar=None):
+    def load(graphfile, headers=None, grammar=None, provenance_file=None):
         """
         Loads a Graph from a graph file.
         If lines in the data file have more than 3 values, i.e., edges contain
@@ -201,8 +203,11 @@ class Graph:
         data as data[key] = type(f).
         If `grammar` is not None, restricts edges to its alphabet.
         """
+
+        "Se `provenance_file` não for None, carregue o grafo de proveniência do arquivo."
         D = Graph()
         D.name = graphfile
+        
         for line in _read_graph_file(graphfile):
             s, p, o, *fields = line
             mustadd = p in grammar.term if grammar is not None else True
@@ -212,8 +217,13 @@ class Graph:
                     key, _type = headers[i]
                     data[key] = _type(f)
                 D.add(s, p, o, data)
+        if provenance_file is not None:
+            # Carregue o grafo de proveniência a partir do arquivo
+            with open(provenance_file, encoding='utf-8') as meu_json:
+                dados = json.load(meu_json)
+            D.provenence = dados
+            
         return D
-
 
 class Node:
     '''A node or vertex.

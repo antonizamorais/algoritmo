@@ -4,7 +4,7 @@ import re
 class Provenance:
 
     #função para abrir os dados de proveniência em formato json
-    def abrir(provenanceFile):
+    def load(provenanceFile):
         with open(provenanceFile, encoding='utf-8') as meu_json:
             dados = json.load(meu_json)
         return dados

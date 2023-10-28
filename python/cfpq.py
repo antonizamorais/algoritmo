@@ -24,7 +24,7 @@ if __name__ == '__main__':
         grammar = Grammar.load(argv[1])
         graph = Graph.load(argv[2])
         #Colocar um terceiro argumento: grafo de proveniência
-        prov = Provenance.open(argv[3])
+        prov = Provenance.load(argv[3])
         query = set(product(graph.all_nodes(), [grammar.start_symbol]))
         # TODO: receive CFPQEngine class as input
         #Passar o grafo de proveniência para o algoritmo
