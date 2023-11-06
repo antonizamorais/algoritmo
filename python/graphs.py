@@ -13,7 +13,7 @@ class Graph:
         self.obj_data = {}
         self.triples_count = 0
         self.name = name
-        self.provenence = {}
+        self.provenance = {}
 
     def __len__(self):
         '''Allows the use of the `len` function to get the amount of triples
@@ -196,6 +196,7 @@ class Graph:
 
     @staticmethod
     def load(graphfile, headers=None, grammar=None, provenance_file=None):
+        
         """
         Loads a Graph from a graph file.
         If lines in the data file have more than 3 values, i.e., edges contain
@@ -221,7 +222,7 @@ class Graph:
             # Carregue o grafo de proveniência a partir do arquivo
             with open(provenance_file, encoding='utf-8') as meu_json:
                 dados = json.load(meu_json)
-            D.provenence = dados
+            D.provenance = dados
             
         return D
 
