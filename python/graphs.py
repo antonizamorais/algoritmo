@@ -218,11 +218,11 @@ class Graph:
                     key, _type = headers[i]
                     data[key] = _type(f)
                 D.add(s, p, o, data)
-        if provenance_file is not None:
+        #if provenance_file is not None:
             # Carregue o grafo de proveniência a partir do arquivo
-            with open(provenance_file, encoding='utf-8') as meu_json:
-                dados = json.load(meu_json)
-            D.provenance = dados
+            #with open(provenance_file, encoding='utf-8') as meu_json:
+                #dados = json.load(meu_json)
+            #D.provenance = dados
             
         return D
 
