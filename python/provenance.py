@@ -6,8 +6,8 @@ class Provenance:
     #função para abrir os dados de proveniência em formato json
     def load(provenanceFile):
         with open(provenanceFile, encoding='utf-8') as meu_json:
-            dados = json.load(meu_json)
-        return dados
+            P = json.load(meu_json)
+        return P
     
     #função que retorna as propriedades de um determinado vértice ou aresta x do grafo de proveniência
     def propriedadesPROV(fileProv, x):
