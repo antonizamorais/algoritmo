@@ -16,23 +16,24 @@ from provenance import Provenance
 
 
 if __name__ == '__main__':
+    if len(argv) != 4:
+        # TODO: receive CFPQEngine class as input
+        print('Usage:', argv[0], 'grammar.yrd graph.txt provenance.json')
+        quit(-1)
+
     engine = None
     grammar = None
     graph = None
     prov = None 
-    try:
-        grammar = Grammar.load(argv[1])
-        graph = Graph.load(argv[2])
-        #Colocar um terceiro argumento: grafo de proveniência
-        prov = Provenance.load(argv[3])
-        query = set(product(graph.all_nodes(), [grammar.start_symbol]))
-        # TODO: receive CFPQEngine class as input
-        #Passar o grafo de proveniência para o algoritmo
-        engine = TraceItemsCFPQEngine(grammar, graph, prov, query)
-    except IndexError:
-        # TODO: receive CFPQEngine class as input
-        print('Usage:', argv[0],
-              'grammar.yrd graph.txt provenance.json')
-        quit(-1)
+
+    grammar = Grammar.load(argv[1])
+    graph = Graph.load(argv[2])
+    #Colocar um terceiro argumento: grafo de proveniência
+    prov = Provenance.load(argv[3])
+    query = set(product(graph.all_nodes(), [grammar.start_symbol]))
+    # TODO: receive CFPQEngine class as input
+    #Passar o grafo de proveniência para o algoritmo
+    engine = TraceItemsCFPQEngine(grammar, graph, prov, query)
+
     engine.run_experiment()
 
