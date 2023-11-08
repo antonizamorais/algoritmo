@@ -245,5 +245,5 @@ def _read_graph_file(graphfile):
     f = open(graphfile, 'r')
     for line in f.readlines():
         if line:
-            yield line.strip('\n').split(' ')
+            yield line.strip('\n \t').split(' ')
     f.close()
