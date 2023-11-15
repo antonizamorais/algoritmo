@@ -1,5 +1,6 @@
 import json
 import re
+import ast
 
 class Provenance:
 
@@ -17,79 +18,68 @@ class Provenance:
 
     #função para encontrar as propriedades da tripla a partir da aresta
 
-    def encontrarTriplas(arquivotxt, name, arquivojson):
-        # Crie uma lista para armazenar objetos JSON
-        conteudos_json = []
-        #Abrir o arquivo json
-        with open(arquivojson, encoding='utf-8') as meu_json:
-            dados = json.load(meu_json)
-        # Abra o arquivo para leitura
-        with open(arquivotxt, 'r') as arquivo:
-        # Itere pelas linhas do arquivo em busca das aresta rotulada por name
-            for numero_linha, linha in enumerate(arquivo, start=1):
-            # Quando encontrar a aresta na linha
-                if name in linha:
-                    # Use uma expressão regular para encontrar todas as palavras na linha
-                    # Assim identificar vértices de origem e destino
-                    palavras = re.findall(r'\w+', linha)
-                    for palavra in palavras:
-                     
-                        #Verificar se a aresta ou vértice tem propriedade
-                        if palavra in dados:
-                            prov = dados[palavra]
+    def encontrarPropriedades(arquivo_txt, rotulo, propriedades):
+        resultados_txt = []     
+        
+        linhas = arquivo_txt.split('\n')
 
-                            #adicionar as propredades a lista
-                            conteudos_json.append(prov)
-                        else:
-                            pass
-        r = json.dumps(conteudos_json, indent=2)
-        return r
+        for linha in linhas:
+            # Divide a linha nas triplas
+            partes = linha.split()
+
+            # Verifica se o rótulo está presente na linha
+            if rotulo in partes:
+                resultados_txt.append(partes)
+        print(resultados_txt)
+        resultados_com_propriedades = []
+
+        # Buscar propriedades no arquivo JSON
+        for resultado_txt in resultados_txt:
+            resultado_com_propriedades = {}
+
+            for v in resultado_txt:
+                if v in propriedades:
+                    resultado_com_propriedades[v] = propriedades[v]
+
+            resultados_com_propriedades.append(resultado_com_propriedades)
+
+        return resultados_com_propriedades
 
     # Função que recebe os requisitos do usuário
- 
     def requisitos():
-
         verticeOrigem = {}
         aresta = {}
         verticeDestino = {}
 
-        key1 = input("digite a chave para o requisito do vértice de origem: ")
-        if not key1:
-            key1 = None
-            verticeOrigem[key1] = None
-        else:
-            valor1 = input("digite o valor para o requisito do vértice de origem: ")
-            if not valor1:
-                verticeOrigem[key1] = None
-            else:
-                verticeOrigem[key1] = valor1
-        
-        key2 = input("digite a chave para o requisito da aresta: ")
-        if not key2:
-            key2 = None
-            aresta[key2] = None
-        else:
-            valor2 = input("digite o valor para o requisito da aresta: ")
-            if not valor2:
-                aresta[key2] = None
-            else:
-                aresta[key2] = valor2
-        
-        
-        key3 = input("digite a chave para o requisito do vértice de destino: ")
-        if not key3:
-            key3 = None
-            verticeDestino[key3] = None
-        else:
-            valor3 = input("digite o valor para o requisito do vértice de destino: ")
-            if not valor3:
-                verticeDestino[key3] = None
-            else:
-                verticeDestino[key3] = valor3
-        
-        
+        localarquivo = input("requisito: ")
+        with open(localarquivo, 'r') as arquivo:
+            # Lê as linhas em grupos de 3 (assumindo que o arquivo sempre tem múltiplos de 3 linhas)
+            for linha1, linha2, linha3 in zip(arquivo, arquivo, arquivo):
+                # Processa cada linha individualmente
+                nome1, valor1 = linha1.strip().split('=')
+                nome2, valor2 = linha2.strip().split('=')
+                nome3, valor3 = linha3.strip().split('=')
+
+                # Adiciona os valores aos dicionários
+                verticeOrigem[nome1] = valor1
+                aresta[nome2] = valor2
+                verticeDestino[nome3] = valor3
+
         return verticeOrigem, aresta, verticeDestino
-       
+    
+    # Função para converter uma string do formato 'chave = valor' em um par chave-valor
+    def parse_line(line):
+        match = re.match(r'\s*([^=]+)\s*=\s*(.*)\s*', line)
+        if match:
+            key = match.group(1).strip()
+            value = match.group(2).strip()
+            return key, value
+        else:
+            return None, None
+
+   
+
+    
         
 
 

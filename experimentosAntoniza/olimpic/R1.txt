@@ -1,1 +1,3 @@
-ra = nulo, rvo = "name": "10000M Men", rvd = "medal": "G"
+name = 10000M Men 
+nulo = nulo
+medal = G

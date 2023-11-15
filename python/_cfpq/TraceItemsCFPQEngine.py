@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from overrides import override
+import ast
 
 from graphs import Graph
 from _cfpq.CFPQEngine import CFPQEngine
@@ -66,8 +67,14 @@ class TraceItemsCFPQEngine(CFPQEngine):
                 requisitoDestino = {}
 
                 requisitoOrigem, requisitoAresta, requisitoDestino = Provenance.requisitos()
-                propriedadesX = Provenance.propriedadesPROV(self.D, X, self.P)
-                if requisitoOrigem in propriedadesX and requisitoAresta in propriedadesX and requisitoDestino in propriedadesX:
+                
+                propriedadesX = Provenance.encontrarPropriedades(self.D, X, self.P)
+                print(propriedadesX)
+                if all(item in propriedadesX.items() for item in [(requisitoOrigem), (requisitoAresta), (requisitoDestino)]):
+
+                # Se todas as chaves e valores estiverem presentes em propriedadesX
+
+                #if requisitoOrigem in propriedadesX and requisitoAresta in propriedadesX and requisitoDestino in propriedadesX:
                     destinations = set()
                     for a in poset.new:
                         destinations.update(set(self.D.objects(a, X)))
