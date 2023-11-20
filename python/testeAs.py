@@ -71,7 +71,46 @@ def buscar_rotulo(arquivo_txt, rotulo, arquivo_json):
 
     return resultados_com_propriedades
 
-# Exemplo de uso
-arquivo = input("arquivo txt: ")
-resultados = _read_graph_file(arquivo)
-print(resultados)
+def requisitos():
+    # Inicializa listas para armazenar dados
+    verticesOrigem = []
+    arestas = []
+    verticesDestino = []
+
+    # Obtém o caminho do arquivo do usuário
+    localarquivo = input("requisito: ")
+
+    # Abre o arquivo em modo de leitura
+    with open(localarquivo, 'r') as arquivo:
+        # Lê o arquivo em grupos de três linhas
+        for linha1, linha2, linha3 in zip(arquivo, arquivo, arquivo):
+            # Processa a primeira linha no grupo
+            if "None" in linha1:
+                verticesOrigem.append(None)
+            else:
+                nome1, valor1 = map(str.strip, linha1.split('='))
+                verticesOrigem.append(f"{nome1}:{valor1}")
+
+            # Processa a segunda linha no grupo
+            if "None" in linha2:
+                arestas.append(None)
+            else:
+                nome2, valor2 = map(str.strip, linha2.split('='))
+                arestas.append(f"{nome2}:{valor2}")
+
+            # Processa a terceira linha no grupo
+            if "None" in linha3:
+                verticesDestino.append(None)
+            else:
+                nome3, valor3 = map(str.strip, linha3.split('='))
+                verticesDestino.append(f"{nome3}:{valor3}")
+
+    # Retorna as listas
+    return verticesOrigem, arestas, verticesDestino
+
+
+
+v, o, d = requisitos()
+print(v)
+print(o)
+print(d)

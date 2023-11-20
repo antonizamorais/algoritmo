@@ -67,14 +67,14 @@ class TraceItemsCFPQEngine(CFPQEngine):
                 requisitoDestino = {}
 
                 requisitoOrigem, requisitoAresta, requisitoDestino = Provenance.requisitos()
-                
+                #print(requisitoOrigem)
+                #print(requisitoAresta)
+                #print(requisitoDestino)
                 propriedadesX = Provenance.encontrarPropriedades(self.D, X, self.P)
-                print(propriedadesX)
-                if all(item in propriedadesX.items() for item in [(requisitoOrigem), (requisitoAresta), (requisitoDestino)]):
-
+                #print(propriedadesX)
+                
                 # Se todas as chaves e valores estiverem presentes em propriedadesX
-
-                #if requisitoOrigem in propriedadesX and requisitoAresta in propriedadesX and requisitoDestino in propriedadesX:
+                if Provenance.verificarListas([requisitoOrigem, requisitoAresta, requisitoDestino], propriedadesX):
                     destinations = set()
                     for a in poset.new:
                         destinations.update(set(self.D.objects(a, X)))

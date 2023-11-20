@@ -18,26 +18,22 @@ class Provenance:
 
     #função para encontrar as propriedades da tripla a partir da aresta
 
-    def encontrarPropriedades(arquivo_txt, rotulo, propriedades):
-        resultados_txt = []     
+    def encontrarPropriedades(grafo, aresta, propriedades):
+        resultados_grafo = []     
         
-        linhas = arquivo_txt.split('\n')
+        for partes in grafo:
+            #verificar se a aresta esta presente na linha
+            if aresta in partes:
+                partes = partes[:-1]
+                resultados_grafo.append(partes)
 
-        for linha in linhas:
-            # Divide a linha nas triplas
-            partes = linha.split()
-
-            # Verifica se o rótulo está presente na linha
-            if rotulo in partes:
-                resultados_txt.append(partes)
-        print(resultados_txt)
         resultados_com_propriedades = []
 
         # Buscar propriedades no arquivo JSON
-        for resultado_txt in resultados_txt:
+        for resultado_grafo in resultados_grafo:
             resultado_com_propriedades = {}
 
-            for v in resultado_txt:
+            for v in resultado_grafo:
                 if v in propriedades:
                     resultado_com_propriedades[v] = propriedades[v]
 
@@ -45,41 +41,58 @@ class Provenance:
 
         return resultados_com_propriedades
 
-    # Função que recebe os requisitos do usuário
     def requisitos():
-        verticeOrigem = {}
-        aresta = {}
-        verticeDestino = {}
+        # Inicializa listas para armazenar dados
+        verticesOrigem = []
+        arestas = []
+        verticesDestino = []
 
+        # Obtém o caminho do arquivo do usuário
         localarquivo = input("requisito: ")
+
+        # Abre o arquivo em modo de leitura
         with open(localarquivo, 'r') as arquivo:
-            # Lê as linhas em grupos de 3 (assumindo que o arquivo sempre tem múltiplos de 3 linhas)
+            # Lê o arquivo em grupos de três linhas
             for linha1, linha2, linha3 in zip(arquivo, arquivo, arquivo):
-                # Processa cada linha individualmente
-                nome1, valor1 = linha1.strip().split('=')
-                nome2, valor2 = linha2.strip().split('=')
-                nome3, valor3 = linha3.strip().split('=')
+                # Processa a primeira linha no grupo
+                if "None" in linha1:
+                    verticesOrigem.append(None)
+                else:
+                    nome1, valor1 = map(str.strip, linha1.split('='))
+                    verticesOrigem.append(f"{nome1}:{valor1}")
 
-                # Adiciona os valores aos dicionários
-                verticeOrigem[nome1] = valor1
-                aresta[nome2] = valor2
-                verticeDestino[nome3] = valor3
+                # Processa a segunda linha no grupo
+                if "None" in linha2:
+                    arestas.append(None)
+                else:
+                    nome2, valor2 = map(str.strip, linha2.split('='))
+                    arestas.append(f"{nome2}:{valor2}")
 
-        return verticeOrigem, aresta, verticeDestino
+                # Processa a terceira linha no grupo
+                if "None" in linha3:
+                    verticesDestino.append(None)
+                else:
+                    nome3, valor3 = map(str.strip, linha3.split('='))
+                    verticesDestino.append(f"{nome3}:{valor3}")
+
+        # Retorna as listas
+        return verticesOrigem, arestas, verticesDestino
     
-    # Função para converter uma string do formato 'chave = valor' em um par chave-valor
-    def parse_line(line):
-        match = re.match(r'\s*([^=]+)\s*=\s*(.*)\s*', line)
-        if match:
-            key = match.group(1).strip()
-            value = match.group(2).strip()
-            return key, value
-        else:
-            return None, None
+    # Função para converter um dicionário em string
+    def converteDic(dic):
+        # Converter dicionários em strings
+        return [f"{key}: {value}" for key, value in dic.items()]
 
    
-
-    
-        
+    # Função para verificar se a lista de requisitos esta presente na lista de propriedades
+    def verificarListas(list_req, list_prov):
+        for sublist in list_req:
+            # Verifica se qualquer sublista está presente
+            if any(all(
+                (item is None or str(item) in str(dic.values())) for item in sublist
+            ) for dic in list_prov):
+                return True
+        return False
+            
 
 
