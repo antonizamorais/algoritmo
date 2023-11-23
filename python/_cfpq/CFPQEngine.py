@@ -7,11 +7,12 @@ class CFPQEngine:
     Optionally, they can also implement the `_pre_run` and `_post_run` methods
     to add pre- and pos-query instructions.
     '''
-    def __init__(self, grammar, graph, provenance, query):
+    def __init__(self, grammar, graph, provenance, requisito, query):
         self.G = grammar
         self.D = graph
         self.Q = query
         self.P = provenance
+        self.C = requisito
 
 
     def run(self):
@@ -68,6 +69,7 @@ class CFPQEngine:
             ('grammar', self.G.name),
             ('graph', self.D.name),
             ('provenance', self.P),
+            ('requisito', self.C),
             ('results', result_count),
             ('time', time),
             ('memory', memory)

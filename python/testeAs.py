@@ -71,14 +71,11 @@ def buscar_rotulo(arquivo_txt, rotulo, arquivo_json):
 
     return resultados_com_propriedades
 
-def requisitos():
+def requisitos(localarquivo):
     # Inicializa listas para armazenar dados
     verticesOrigem = []
     arestas = []
     verticesDestino = []
-
-    # Obtém o caminho do arquivo do usuário
-    localarquivo = input("requisito: ")
 
     # Abre o arquivo em modo de leitura
     with open(localarquivo, 'r') as arquivo:
@@ -109,8 +106,13 @@ def requisitos():
     return verticesOrigem, arestas, verticesDestino
 
 
-
-v, o, d = requisitos()
+# Obtém o caminho do arquivo do usuário
+local = input("requisito: ")
+v, o, d = requisitos(local)
+y = requisitos(local)
 print(v)
+print(type(v))
 print(o)
 print(d)
+print(y)
+print(type(y))

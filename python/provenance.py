@@ -1,6 +1,7 @@
 import json
 import re
 import ast
+from itertools import islice
 
 class Provenance:
 
@@ -10,6 +11,12 @@ class Provenance:
             P = json.load(meu_json)
         return P
     
+    #Função para lê arquivo de requisitos
+    def loadReq(requisitoFile):
+        with open(requisitoFile, 'r') as arquivo:
+            R = arquivo.read()
+        return R
+
     #função que retorna as propriedades de um determinado vértice ou aresta x do grafo de proveniência
     def propriedadesPROV(fileProv, x):
         with open(fileProv, encoding='utf-8') as meu_json:
@@ -41,43 +48,35 @@ class Provenance:
 
         return resultados_com_propriedades
 
-    def requisitos():
-        # Inicializa listas para armazenar dados
+    def requisitos(arquivo):
+    # Inicializa listas para armazenar dados
         verticesOrigem = []
         arestas = []
         verticesDestino = []
 
-        # Obtém o caminho do arquivo do usuário
-        localarquivo = input("requisito: ")
-
-        # Abre o arquivo em modo de leitura
-        with open(localarquivo, 'r') as arquivo:
-            # Lê o arquivo em grupos de três linhas
-            for linha1, linha2, linha3 in zip(arquivo, arquivo, arquivo):
-                # Processa a primeira linha no grupo
-                if "None" in linha1:
-                    verticesOrigem.append(None)
+        # Use islice para criar uma "janela deslizante" de tamanho 3
+        for grupo_linhas in zip(*(islice(arquivo, i, None) for i in range(3))):
+            # Processa cada linha no grupo
+            for i, linha in enumerate(grupo_linhas):
+                if "=" in linha:
+                    nome, valor = map(str.strip, linha.split('='))
+                    valor = f"{nome}:{valor}"
                 else:
-                    nome1, valor1 = map(str.strip, linha1.split('='))
-                    verticesOrigem.append(f"{nome1}:{valor1}")
+                    # Lidar com o caso em que a linha não tem o formato esperado
+                    valor = None
 
-                # Processa a segunda linha no grupo
-                if "None" in linha2:
-                    arestas.append(None)
-                else:
-                    nome2, valor2 = map(str.strip, linha2.split('='))
-                    arestas.append(f"{nome2}:{valor2}")
-
-                # Processa a terceira linha no grupo
-                if "None" in linha3:
-                    verticesDestino.append(None)
-                else:
-                    nome3, valor3 = map(str.strip, linha3.split('='))
-                    verticesDestino.append(f"{nome3}:{valor3}")
+                # Adiciona o valor à lista apropriada (verticesOrigem, arestas, verticesDestino)
+                if i == 0:
+                    verticesOrigem.append(valor)
+                elif i == 1:
+                    arestas.append(valor)
+                elif i == 2:
+                    verticesDestino.append(valor)
 
         # Retorna as listas
         return verticesOrigem, arestas, verticesDestino
-    
+
+
     # Função para converter um dicionário em string
     def converteDic(dic):
         # Converter dicionários em strings

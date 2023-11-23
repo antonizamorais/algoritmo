@@ -16,24 +16,26 @@ from provenance import Provenance
 
 
 if __name__ == '__main__':
-    if len(argv) != 4:
+    if len(argv) != 5:
         # TODO: receive CFPQEngine class as input
-        print('Usage:', argv[0], 'grammar.yrd graph.txt provenance.json')
+        print('Usage:', argv[0], 'grammar.yrd graph.txt provenance.json requisito.txt')
         quit(-1)
 
     engine = None
     grammar = None
     graph = None
-    prov = None 
+    provenance = None 
 
     grammar = Grammar.load(argv[1])
     graph = Graph.load(argv[2])
-    #Colocar um terceiro argumento: grafo de proveniência
-    prov = Provenance.load(argv[3])
+    # Terceiro argumento: grafo de proveniência .json
+    provenance = Provenance.load(argv[3])
+    # Quarto argumento: Requisito .txt
+    requisito = Provenance.loadReq(argv[4])
     query = set(product(graph.all_nodes(), [grammar.start_symbol]))
     # TODO: receive CFPQEngine class as input
     #Passar o grafo de proveniência para o algoritmo
-    engine = TraceItemsCFPQEngine(grammar, graph, prov, query)
+    engine = TraceItemsCFPQEngine(grammar, graph, provenance, requisito, query)
 
     engine.run_experiment()
 
