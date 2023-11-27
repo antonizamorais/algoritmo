@@ -21,10 +21,7 @@ def encontrarTriplas(arquivotxt, name):
         if name in linha:
             # Encontrar todas as palavras na linha
             palavras = re.findall(r'\S+', linha)  # Use \S+ para pegar palavras que contêm caracteres especiais
-            
-            # Depuração: imprima informações
-            print("Linha:", linha)
-            print("Palavras:", palavras)
+        
 
             # Abra o arquivo referenciado e obtenha o conteúdo
             caminho_arquivo = palavras[-1]  # Última palavra na linha é o caminho do arquivo
@@ -56,7 +53,7 @@ def buscar_rotulo(arquivo_txt, rotulo, arquivo_json):
             # Verifica se o rótulo está presente na linha
             if rotulo in partes:
                 resultados_txt.append(partes)
-    print(resultados_txt)
+
     resultados_com_propriedades = []
 
     # Buscar propriedades no arquivo JSON
@@ -110,9 +107,3 @@ def requisitos(localarquivo):
 local = input("requisito: ")
 v, o, d = requisitos(local)
 y = requisitos(local)
-print(v)
-print(type(v))
-print(o)
-print(d)
-print(y)
-print(type(y))

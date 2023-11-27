@@ -25,6 +25,7 @@ if __name__ == '__main__':
     grammar = None
     graph = None
     provenance = None 
+    requisito = None
 
     grammar = Grammar.load(argv[1])
     graph = Graph.load(argv[2])

@@ -54,7 +54,7 @@ class Provenance:
         arestas = []
         verticesDestino = []
 
-        # Use islice para criar uma "janela deslizante" de tamanho 3
+        #"janela deslizante" de tamanho 3
         for grupo_linhas in zip(*(islice(arquivo, i, None) for i in range(3))):
             # Processa cada linha no grupo
             for i, linha in enumerate(grupo_linhas):
@@ -75,12 +75,6 @@ class Provenance:
 
         # Retorna as listas
         return verticesOrigem, arestas, verticesDestino
-
-
-    # Função para converter um dicionário em string
-    def converteDic(dic):
-        # Converter dicionários em strings
-        return [f"{key}: {value}" for key, value in dic.items()]
 
    
     # Função para verificar se a lista de requisitos esta presente na lista de propriedades

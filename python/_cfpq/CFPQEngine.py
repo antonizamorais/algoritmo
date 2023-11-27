@@ -68,8 +68,8 @@ class CFPQEngine:
             ('engine', type(self).__name__),
             ('grammar', self.G.name),
             ('graph', self.D.name),
-            ('provenance', self.P),
-            ('requisito', self.C),
+            #('provenance', self.P),
+            #('requisito', self.C),
             ('results', result_count),
             ('time', time),
             ('memory', memory)
